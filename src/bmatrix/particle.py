@@ -95,14 +95,15 @@ class Particle:
         c = delta_pos.dot(delta_pos) - dist * dist
         time = (-b - sqrt(b * b - 4 * a * c)) / (2 * a)
 
+        self._append_trace(self._pos, stage)
+        self._append_trace(other._pos, stage)
+
         self._pos = self._pos.add(self._vel.scale(time))
         other._pos = other._pos.add(other._vel.scale(time))
         self._time = other._time = -time
-        # self._append_trace(self._pos, stage)
-        # self._append_trace(other._pos, stage)
 
 
-    def bounce(self, other, stage):
+    def bounce(self, other):
         dist = self._radius + other._radius
         delta_pos = self._pos.sub(other._pos)
         delta_vel = self._vel.sub(other._vel)
@@ -110,9 +111,6 @@ class Particle:
 
         self._vel = self._vel.sub(delta_pos.scale(factor * other._m))
         other._vel = other._vel.add(delta_pos.scale(factor * self._m))
-
-        # self._append_trace(self._pos, stage)
-        # self._append_trace(other._pos, stage)
 
         other._pos = other._pos.add(other._vel.scale(other._time))
         self._pos = self._pos.add(self._vel.scale(self._time))

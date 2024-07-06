@@ -66,7 +66,8 @@ def main():
             stage.add_particle(Particle(random.randrange(0, stage.width() - 1), 0, 
                                         0, 0.5 + random.random() * 0.5, 
                                         trace_limit=stage.height() // 1.5, 
-                                        trace_color=trace_color(args.random_trace_color)))
+                                        trace_color=trace_color(args.random_trace_color), 
+                                        head_color=(0xcc, 0xff, 0xcc)))
 
         if show_info:
             with term.location(0, 0):

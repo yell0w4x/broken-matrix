@@ -76,7 +76,7 @@ class TerminalStage:
                 obj2 = objects[j]
                 if obj1.collide(obj2):
                     obj1.align(obj2, self)
-                    obj1.bounce(obj2, self)
+                    obj1.bounce(obj2)
                 j += 1
 
         for obj in objects:
