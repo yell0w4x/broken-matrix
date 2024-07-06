@@ -35,6 +35,7 @@ def main():
     stage = TerminalStage(term, args.objects_limit)
 
     show_info = False
+    stage.clear()
     while True:
         stage.run()
 
@@ -42,7 +43,9 @@ def main():
             val = term.inkey(timeout=0)
             match val.lower():
                 case 'i':
-                    show_info = not show_info   
+                    show_info = not show_info
+                    if not show_info:
+                        stage.clear()
 
                 case 'r':
                     args.random_trace_color = not args.random_trace_color
@@ -66,8 +69,9 @@ def main():
                                         trace_color=trace_color(args.random_trace_color)))
 
         if show_info:
-            print(f'{term.yellow3}Objects: {len(stage.objects()):9}{term.normal}')
-            print(f'{term.yellow3}Objects limit: {stage.objects_limit():3}{term.normal}')
+            with term.location(0, 0):
+                print(f'{term.yellow3}Objects: {len(stage.objects()):9}{term.normal}')
+                print(f'{term.yellow3}Objects limit: {stage.objects_limit():3}{term.normal}')
         
         time.sleep(0.025)
 

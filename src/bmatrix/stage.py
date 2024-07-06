@@ -9,6 +9,10 @@ class TerminalStage:
         return self.__objects
 
 
+    def terminal(self):
+        return self.__term
+
+
     def width(self):
         return self.__term.width
 
@@ -51,7 +55,7 @@ class TerminalStage:
         white_color = 0xff, 0xff, 0xff
 
         for obj in objects:
-            obj.update(width, height)
+            obj.update(self)
 
             obj.allow_go_away(len(objects) > objects_limit)
 
@@ -75,6 +79,5 @@ class TerminalStage:
                     obj1.bounce(obj2)
                 j += 1
 
-        self.clear()
         for obj in objects:
             obj.draw(self)

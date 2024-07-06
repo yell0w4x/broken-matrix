@@ -29,7 +29,7 @@ class Particle:
         self._time = 0
         self.__char = 0
         self.__alphabet = sample(ALPHABET, len(ALPHABET))
-        self.__trace_limit = randint(0, trace_limit)
+        self.__trace_limit = randint(5, trace_limit)
         self.__trace = deque()
         self.__trace_color = trace_color
         self.__remove_me = False
@@ -113,7 +113,8 @@ class Particle:
         self._pos = self._pos.add(self._vel.scale(self._time))
 
 
-    def update(self, width, height):
+    def update(self, stage):
+        width, height = stage.width(), stage.height()
         pos, vel, radius = self._pos, self._vel, self._radius
 
         if (pos.x <= radius and vel.x < 0) or (pos.x >= width and vel.x > 0):
@@ -128,17 +129,21 @@ class Particle:
         self._pos = pos.add(vel)
 
         if int(tmp.x) != int(self._pos.x) or int(tmp.y) != int(self._pos.y):
-            self.__append_trace(tmp)
+            self.__append_trace(tmp, stage)
             self.__char += 1
             if self.__char >= len(self.__alphabet):
                 self.__char = 0
 
 
-    def __append_trace(self, pos):
+    def __append_trace(self, pos, stage):
         trace = self.__trace
         trace.appendleft((self.char(), pos, self.__trace_color))
         if len(trace) > self.__trace_limit:
-            trace.pop()
+            _, pos, _ = trace.pop()
+            term = stage.terminal()
+            pos = pos.ensure_int()
+            with term.location(pos.x, pos.y):
+                print(' ', end='')
 
 
     def __draw_trace(self, stage):
