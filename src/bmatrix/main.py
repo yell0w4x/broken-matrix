@@ -21,7 +21,7 @@ Keys available in runtime:\n
     'q' - exit"""
 
     parser = ArgumentParser(description=desc, formatter_class=RawDescriptionHelpFormatter)
-    parser.add_argument('--objects-limit', default=150, required=False, 
+    parser.add_argument('--objects-limit', default=150, type=int, required=False, 
         help='Below this number objects bounce off the edges. If this number exceeded objects are allowed to go off the screen')
     parser.add_argument('--random-trace-color', default=False, required=False, action='store_true',
         help='Use random objects trace color')

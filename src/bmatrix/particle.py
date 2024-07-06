@@ -86,7 +86,7 @@ class Particle:
         return pos.dot(pos) <= dist ** 2
 
 
-    def align(self, other):
+    def align(self, other, stage):
         dist = self._radius + other._radius
         delta_pos = self._pos.sub(other._pos)
         delta_vel = self._vel.sub(other._vel)
@@ -98,9 +98,11 @@ class Particle:
         self._pos = self._pos.add(self._vel.scale(time))
         other._pos = other._pos.add(other._vel.scale(time))
         self._time = other._time = -time
+        # self._append_trace(self._pos, stage)
+        # self._append_trace(other._pos, stage)
 
 
-    def bounce(self, other):
+    def bounce(self, other, stage):
         dist = self._radius + other._radius
         delta_pos = self._pos.sub(other._pos)
         delta_vel = self._vel.sub(other._vel)
@@ -108,6 +110,9 @@ class Particle:
 
         self._vel = self._vel.sub(delta_pos.scale(factor * other._m))
         other._vel = other._vel.add(delta_pos.scale(factor * self._m))
+
+        # self._append_trace(self._pos, stage)
+        # self._append_trace(other._pos, stage)
 
         other._pos = other._pos.add(other._vel.scale(other._time))
         self._pos = self._pos.add(self._vel.scale(self._time))
@@ -129,13 +134,13 @@ class Particle:
         self._pos = pos.add(vel)
 
         if int(tmp.x) != int(self._pos.x) or int(tmp.y) != int(self._pos.y):
-            self.__append_trace(tmp, stage)
+            self._append_trace(tmp, stage)
             self.__char += 1
             if self.__char >= len(self.__alphabet):
                 self.__char = 0
 
 
-    def __append_trace(self, pos, stage):
+    def _append_trace(self, pos, stage):
         trace = self.__trace
         trace.appendleft((self.char(), pos, self.__trace_color))
         if len(trace) > self.__trace_limit:
