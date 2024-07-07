@@ -19,7 +19,7 @@ def trace_color(random=False):
 
 
 class Particle:
-    def __init__(self, x, y, dx, dy, m=1, radius=1, trace_limit=10, 
+    def __init__(self, x, y, dx, dy, m=1, radius=0.505, trace_limit=10, 
                  trace_color=trace_color(), allow_go_away=False, 
                  head_color=(0xff, 0xff, 0xff)):
         self._pos = Vec2(x, y)

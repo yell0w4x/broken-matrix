@@ -1,7 +1,7 @@
 # Broken matrix
 
 <p align="center">
-    <img src="https://github.com/yell0w4x/assets/blob/52a498a21798f2fb3d542c71ad0b32748d6c3034/bmatrix.gif" alt="bmatrix"/>
+    <img src="https://github.com/yell0w4x/assets/blob/e128cb0a292a7b571d1d9d73da80b76d00a83037/bmatrix.gif" alt="bmatrix"/>
 </p>
 
 ```
