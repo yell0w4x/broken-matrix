@@ -70,9 +70,14 @@ def main():
                                         head_color=(0xcc, 0xff, 0xcc)))
 
         if show_info:
+            def print_line(label, value):
+                print(f'{term.yellow3}{label:>15}{value:>4}{term.normal}')
+
             with term.location(0, 0):
-                print(f'{term.yellow3}Objects: {len(stage.objects()):9}{term.normal}')
-                print(f'{term.yellow3}Objects limit: {stage.objects_limit():3}{term.normal}')
+                print_line('Objects:', len(stage.objects()))
+                print_line('Objects limit:', stage.objects_limit())
+                print_line('Stage width:', stage.width())
+                print_line('Stage height:', stage.height())
         
         time.sleep(0.025)
 
