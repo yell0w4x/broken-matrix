@@ -40,27 +40,22 @@ def main():
         stage.run()
 
         with term.cbreak():
-            val = term.inkey(timeout=0)
-            match val.lower():
-                case 'i':
-                    show_info = not show_info
-                    if not show_info:
-                        stage.clear()
-
-                case 'r':
-                    args.random_trace_color = not args.random_trace_color
-
-                case '+':
-                    stage.objects_limit(stage.objects_limit() + 1)
-
-                case '-':
-                    limit = stage.objects_limit() - 1
-                    if limit < 0:
-                        limit = 0
-                    stage.objects_limit(limit)
-
-                case 'q':   
-                    break
+            val = term.inkey(timeout=0).lower()
+            if val == 'i':
+                show_info = not show_info
+                if not show_info:
+                    stage.clear()
+            elif val == 'r':
+                args.random_trace_color = not args.random_trace_color
+            elif val == '+':
+                stage.objects_limit(stage.objects_limit() + 1)
+            elif val == '-':
+                limit = stage.objects_limit() - 1
+                if limit < 0:
+                    limit = 0
+                stage.objects_limit(limit)
+            elif val == 'q':
+                break
 
         for _ in range(2):
             stage.add_particle(Particle(random.randrange(0, stage.width() - 1), 0, 
